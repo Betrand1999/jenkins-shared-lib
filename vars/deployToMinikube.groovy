@@ -1,8 +1,8 @@
-def call(String yamlFile = 'k8s/deployment.yaml') {
+// File: vars/deployToMinikube.groovy
+
+def call(String yamlFile = 'demo/kubernetes/deployment.yaml') {
     echo "Deploying to Minikube using ${yamlFile}"
-    def content = libraryResource(yamlFile)
-    writeFile file: 'deployment.yaml', text: content
 
     sh 'eval "$(/usr/local/bin/minikube docker-env)"'
-    sh 'kubectl apply -f deployment.yaml'
+    sh "kubectl apply -f ${yamlFile}"
 }
